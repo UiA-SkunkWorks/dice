@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #f9fafb;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #diceCollection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .die {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+            user-select: none;
+        }
+
+        #diceCollection div.keep {
+            border: 2px solid #22c55e;
+        }
+
+        input[type="number"],
+        input[type="color"],
+        button {
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            font-size: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #EAEFE2;
+        }
+
+        button i {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        li {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <div id="tools" style="display: flex; align-items: center;">
+        <input id="diceSides" type="number" min="1" value="1"> <input type="color" id="diceColor"> <button id="addBt"><i data-lucide="square-plus"></i></button></button> <button id="roleBt" araia-label="roll dice"><i data-lucide="hand-coins"></i>Role Die</button>
+    </div>
+
+    <div>
+        <button id="usageBt" aria-label="Usage info"><i data-lucide="info"></i></button>
+        <button id="saveBt" aria-label="Save"><i data-lucide="save"></i></button>
+        <button id="shareBt" araia-label="share"><i data-lucide="share-2"></i></button>
+    </div>
+
+
+    <dialog id="usageDialog" style="max-width: 600px; text-align: left; padding: 50px; margin-top: 2rem; font-size: 1rem; color: #555;">
+        <h1>Usage</h1>
+        <p><strong>Keep:</strong> Click on a dice to toggle "keep" mode. Kept dice won't be rolled when you click Roll, and they will have a green border.</p>
+        <p><strong>Save:</strong> Use the Save button to store your current dice setup. You'll be asked to enter an ID. Later, you can reload your saved dice using the URL with <code>?id=yourid</code>.</p>
+        <p><strong>Dice Config (URL):</strong> You can set up dice directly by using the <code>?dice=</code> query parameter in the URL.</p>
+        <p>Each configuration follows this format: <code>[optional color]D[sides]</code>. A color (hex code) applies to all following dice until a new color is specified.</p>
+        <p>If you want to specify a color, use a <code>#</code> before the dice (URL-safe, you can use <code>|</code> instead of <code>#</code> when writing URLs).</p>
+        <p><strong>Examples:</strong></p>
+        <ul style="padding-left: 0;">
+            <li><code>?dice=D6D8D20</code> → Adds a D6, D8, and D20 dice with the default color.</li>
+            <li><code>?dice=#00ff00d6d10d12</code> → Adds three dice (6, 10, and 12 sides) all in green (#00ff00).</li>
+            <li><code>?dice=#00ff00d6|ff0000d12d10</code> → Adds:
+                <ul style="list-style: none; padding-left: 1rem;">
+                    <li>• A 6-sided dice with green (#00ff00)</li>
+                    <li>• A 12-sided and 10-sided dice with red (#ff0000)</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>Important:</strong> The color applies to all dice following it until a new color is specified. Use <code>|</code> instead of <code>#</code> when writing URLs manually to avoid encoding issues.</p>
+        <button id="closeUsage" style="margin-top:1rem;">Close</button>
+    </dialog>
+
+    <div id="diceCollection">
+
+    </div>
+
+
+    <script src="app.mjs" type="module" defer></script>
+
+
+
+
+
+</body>
+
+</html>
